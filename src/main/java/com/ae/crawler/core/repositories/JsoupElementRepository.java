@@ -2,6 +2,8 @@ package com.ae.crawler.core.repositories;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.jsoup.Jsoup;
@@ -19,5 +21,9 @@ public class JsoupElementRepository {
 
 	public Optional<Element> findById(String elementId) {
 		return Optional.ofNullable(document.getElementById(elementId));
+	}
+
+	public List<Element> findByAttributeValue(Element element) {
+		return new ArrayList<>();
 	}
 }
