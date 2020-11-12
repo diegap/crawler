@@ -23,9 +23,11 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     implementation("com.google.guava:guava:28.2-jre")
+    implementation("org.jsoup:jsoup:1.11.2")
 
     // Use JUnit test framework
     testImplementation("junit:junit:4.12")
+    testImplementation("org.assertj:assertj-core:3.18.0")
 }
 
 application {
