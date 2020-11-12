@@ -48,7 +48,8 @@ public class LookupTest {
 		// given
 		String elementId = "make-everything-ok-button";
 		String originResourcePath = "./src/test/resources/sample-0-origin.html";
-		String evilGeminiResourcePath = "./src/test/resources/sample-1-evil-gemini.html";;
+		String evilGeminiResourcePath = "./src/test/resources/sample-1-evil-gemini.html";
+
 		JsoupElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
 		JsoupElementRepository targetRepository = new JsoupElementRepository(new File(evilGeminiResourcePath));
 
@@ -59,6 +60,21 @@ public class LookupTest {
 
 		// then
 		assertThat(similarElements).isNotEmpty();
+	}
+
+	@Test
+	public void testScoreSimilarElement() {
+
+	}
+
+	@Test
+	public void testFindMaxScoreOnEvilGemini() {
+
+	}
+
+	@Test
+	public void testFindMaxScoreOnContainerAndClone() {
+
 	}
 
 }
