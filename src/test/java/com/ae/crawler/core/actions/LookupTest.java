@@ -11,6 +11,8 @@ import org.jsoup.nodes.Element;
 import org.junit.Test;
 
 import com.ae.crawler.core.repositories.JsoupElementRepository;
+import com.ae.crawler.core.services.DefaultScoringService;
+import com.ae.crawler.core.services.ScoringService;
 
 public class LookupTest {
 
@@ -63,8 +65,25 @@ public class LookupTest {
 	}
 
 	@Test
-	public void testScoreSimilarElement() {
+	public void testScoreSimilarElement() throws IOException {
+		// given
+		String elementId = "make-everything-ok-button";
+		String similarElementId = "custom-mod";
+		String originResourcePath = "./src/test/resources/sample-0-origin.html";
+		String customModResourcePath = "./src/test/resources/sample-0-origin-mod.html";;
+		JsoupElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
+		JsoupElementRepository targetRepository = new JsoupElementRepository(new File(customModResourcePath));
 
+		Element element = originRepository.findById(elementId).get();
+		Element similarElement = targetRepository.findById(similarElementId).get();
+
+		ScoringService scoringService = new DefaultScoringService();
+
+		// when
+		Integer score = scoringService.getScore(element, similarElement);
+
+		// then
+		//assertThat(score).isEqualTo(2);
 	}
 
 	@Test
