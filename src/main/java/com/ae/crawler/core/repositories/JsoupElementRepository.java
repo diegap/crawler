@@ -30,12 +30,15 @@ public class JsoupElementRepository {
 	public List<Element> findByAttributeValue(Element element) {
 		List<Element> matchingElements = new ArrayList<>();
 
-		for (Map.Entry<String, String> entry : element.attributes().asList().stream()
-				.collect(Collectors.toMap(Attribute::getKey, Attribute::getValue)).entrySet()) {
+		for (Map.Entry<String, String> entry : getAttributes(element).entrySet()) {
 			Elements elementsByAttributeValue = document.getElementsByAttributeValue(entry.getKey(), entry.getValue());
 			matchingElements.addAll(elementsByAttributeValue);
 		}
 
 		return matchingElements;
+	}
+
+	private Map<String, String> getAttributes(Element element) {
+		return element.attributes().asList().stream().collect(Collectors.toMap(Attribute::getKey, Attribute::getValue));
 	}
 }
