@@ -4,11 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class JsoupElementRepository {
 
@@ -24,6 +28,14 @@ public class JsoupElementRepository {
 	}
 
 	public List<Element> findByAttributeValue(Element element) {
-		return new ArrayList<>();
+		List<Element> matchingElements = new ArrayList<>();
+
+		for (Map.Entry<String, String> entry : element.attributes().asList().stream()
+				.collect(Collectors.toMap(Attribute::getKey, Attribute::getValue)).entrySet()) {
+			Elements elementsByAttributeValue = document.getElementsByAttributeValue(entry.getKey(), entry.getValue());
+			matchingElements.addAll(elementsByAttributeValue);
+		}
+
+		return matchingElements;
 	}
 }

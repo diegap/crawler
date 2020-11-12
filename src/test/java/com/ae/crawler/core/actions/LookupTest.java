@@ -58,7 +58,7 @@ public class LookupTest {
 		List<Element> similarElements = targetRepository.findByAttributeValue(element.get());
 
 		// then
-		//assertThat(similarElements).isNotEmpty();
+		assertThat(similarElements).isNotEmpty();
 	}
 
 }
