@@ -83,7 +83,7 @@ public class LookupTest {
 		Integer score = scoringService.getScore(element, similarElement);
 
 		// then
-		//assertThat(score).isEqualTo(2);
+		assertThat(score).isEqualTo(2);
 	}
 
 	@Test
