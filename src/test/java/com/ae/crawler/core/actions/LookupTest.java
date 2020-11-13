@@ -162,13 +162,13 @@ public class LookupTest {
 		JsoupElementRepository theScapeRepository = new JsoupElementRepository(new File(theEscapeResourcePath));
 
 		ScoringService scoringService = new DefaultScoringService();
-		Lookup lookup = new Lookup();
+		Lookup lookup = new Lookup(originRepository, theScapeRepository, scoringService);
 
 		// when
-		//Optional<String> path = lookup.invoke(elementId);
+		Optional<String> path = lookup.invoke(elementId);
 
 		// then
-		//assertThat(path.isPresent()).isTrue();
+		assertThat(path.isPresent()).isTrue();
 	}
 
 }
