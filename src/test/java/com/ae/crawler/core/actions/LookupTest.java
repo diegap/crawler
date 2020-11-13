@@ -87,13 +87,68 @@ public class LookupTest {
 	}
 
 	@Test
-	public void testFindMaxScoreOnEvilGemini() {
+	public void testFindMaxScoreOnEvilGemini() throws IOException {
+		// given
+		String elementId = "make-everything-ok-button";
+		String originResourcePath = "./src/test/resources/sample-0-origin.html";
+		String evilGeminiResourcePath = "./src/test/resources/sample-1-evil-gemini.html";
+
+		JsoupElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
+		JsoupElementRepository evilGeminiRepository = new JsoupElementRepository(new File(evilGeminiResourcePath));
+
+		Element element = originRepository.findById(elementId).get();
+		List<Element> similarElements = evilGeminiRepository.findByAttributeValue(element);
+
+		ScoringService scoringService = new DefaultScoringService();
+
+		// when finding max score ...
+		Integer max = 0;
+		Element maxScoreElement = null;
+
+		for (Element similarElement: similarElements){
+			Integer score = scoringService.getScore(element, similarElement);
+			if (score > max){
+				max = score;
+				maxScoreElement = similarElement;
+			}
+		}
+
+		// then
+		assertThat(maxScoreElement.attributes()).isNotNull();
+		assertThat(maxScoreElement.attributes().get("href")).isEqualTo("#check-and-ok");
 
 	}
 
 	@Test
-	public void testFindMaxScoreOnContainerAndClone() {
+	public void testFindMaxScoreOnContainerAndClone() throws IOException {
+		// given
+		String elementId = "make-everything-ok-button";
+		String originResourcePath = "./src/test/resources/sample-0-origin.html";
+		String containerAndCloneResourcePath = "./src/test/resources/sample-2-container-and-clone.html";
 
+		JsoupElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
+		JsoupElementRepository containerAndCloneRepository = new JsoupElementRepository(new File(containerAndCloneResourcePath));
+
+		Element element = originRepository.findById(elementId).get();
+		List<Element> similarElements = containerAndCloneRepository.findByAttributeValue(element);
+
+		ScoringService scoringService = new DefaultScoringService();
+
+		// when finding max score ...
+		Integer max = 0;
+		Element maxScoreElement = null;
+
+		for (Element similarElement: similarElements){
+			Integer score = scoringService.getScore(element, similarElement);
+			if (score > max){
+				max = score;
+				maxScoreElement = similarElement;
+			}
+		}
+
+		// then
+		assertThat(maxScoreElement.attributes()).isNotNull();
+		assertThat(maxScoreElement.attributes().get("class")).isEqualTo("btn test-link-ok");
 	}
 
 }
