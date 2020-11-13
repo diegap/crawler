@@ -34,3 +34,16 @@ application {
     // Define the main class for the application.
     mainClassName = "com.ae.crawler.App"
 }
+
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "com.ae.crawler.App"
+    }
+
+    from(sourceSets.main.get().output)
+
+    dependsOn(configurations.runtimeClasspath)
+    from({
+        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+    })
+}
