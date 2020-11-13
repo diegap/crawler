@@ -151,4 +151,24 @@ public class LookupTest {
 		assertThat(maxScoreElement.attributes().get("class")).isEqualTo("btn test-link-ok");
 	}
 
+	@Test
+	public void testLookUpAction() throws IOException {
+		// given
+		String elementId = "make-everything-ok-button";
+		String originResourcePath = "./src/test/resources/sample-0-origin.html";
+		String theEscapeResourcePath = "./src/test/resources/sample-3-the-escape.html";
+
+		JsoupElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
+		JsoupElementRepository theScapeRepository = new JsoupElementRepository(new File(theEscapeResourcePath));
+
+		ScoringService scoringService = new DefaultScoringService();
+		Lookup lookup = new Lookup();
+
+		// when
+		//Optional<String> path = lookup.invoke(elementId);
+
+		// then
+		//assertThat(path.isPresent()).isTrue();
+	}
+
 }
