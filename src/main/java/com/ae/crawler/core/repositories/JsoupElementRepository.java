@@ -14,7 +14,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class JsoupElementRepository {
+public class JsoupElementRepository implements ElementRepository {
 
 	private static final String CHARSET_NAME = "utf8";
 	private final Document document;
@@ -23,10 +23,12 @@ public class JsoupElementRepository {
 		document = Jsoup.parse(resource, CHARSET_NAME, resource.getAbsolutePath());
 	}
 
+	@Override
 	public Optional<Element> findById(String elementId) {
 		return Optional.ofNullable(document.getElementById(elementId));
 	}
 
+	@Override
 	public List<Element> findByAttributeValue(Element element) {
 		List<Element> matchingElements = new ArrayList<>();
 

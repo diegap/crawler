@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 import com.ae.crawler.core.actions.Lookup;
+import com.ae.crawler.core.repositories.ElementRepository;
 import com.ae.crawler.core.repositories.JsoupElementRepository;
 import com.ae.crawler.core.services.DefaultScoringService;
 import com.ae.crawler.core.services.ScoringService;
@@ -14,8 +15,8 @@ import com.ae.crawler.core.services.ScoringService;
 public class App {
 
     public static void main(String[] args) throws IOException {
-        JsoupElementRepository originElementRepository = new JsoupElementRepository(new File(args[0]));
-        JsoupElementRepository targetElementsRepository = new JsoupElementRepository(new File(args[1]));
+        ElementRepository originElementRepository = new JsoupElementRepository(new File(args[0]));
+        ElementRepository targetElementsRepository = new JsoupElementRepository(new File(args[1]));
 
         ScoringService scoringService = new DefaultScoringService();
         Lookup lookup = new Lookup(originElementRepository, targetElementsRepository, scoringService);

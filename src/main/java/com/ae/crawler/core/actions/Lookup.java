@@ -7,16 +7,16 @@ import java.util.stream.Collectors;
 
 import org.jsoup.nodes.Element;
 
-import com.ae.crawler.core.repositories.JsoupElementRepository;
+import com.ae.crawler.core.repositories.ElementRepository;
 import com.ae.crawler.core.services.ScoringService;
 
 public class Lookup {
 
-	private final JsoupElementRepository originElementsRepository;
-	private final JsoupElementRepository targetElementsRepository;
+	private final ElementRepository originElementsRepository;
+	private final ElementRepository targetElementsRepository;
 	private final ScoringService scoringService;
 
-	public Lookup(JsoupElementRepository originElementsRepository, JsoupElementRepository targetElementsRepository, ScoringService scoringService) {
+	public Lookup(ElementRepository originElementsRepository, ElementRepository targetElementsRepository, ScoringService scoringService) {
 		this.originElementsRepository = originElementsRepository;
 		this.targetElementsRepository = targetElementsRepository;
 		this.scoringService = scoringService;

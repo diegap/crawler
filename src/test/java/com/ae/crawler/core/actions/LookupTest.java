@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.jsoup.nodes.Element;
 import org.junit.Test;
 
+import com.ae.crawler.core.repositories.ElementRepository;
 import com.ae.crawler.core.repositories.JsoupElementRepository;
 import com.ae.crawler.core.services.DefaultScoringService;
 import com.ae.crawler.core.services.ScoringService;
@@ -22,7 +23,7 @@ public class LookupTest {
 		String elementId = "make-everything-ok-button";
 		String resourcePath = "./src/test/resources/sample-0-origin.html";
 
-		JsoupElementRepository repository = new JsoupElementRepository(new File(resourcePath));
+		ElementRepository repository = new JsoupElementRepository(new File(resourcePath));
 
 		// when
 		Optional<Element> element = repository.findById(elementId);
@@ -36,7 +37,7 @@ public class LookupTest {
 		// given
 		String elementId = "non-existing-button";
 		String resourcePath = "./src/test/resources/sample-0-origin.html";
-		JsoupElementRepository repository = new JsoupElementRepository(new File(resourcePath));
+		ElementRepository repository = new JsoupElementRepository(new File(resourcePath));
 
 		// when
 		Optional<Element> element = repository.findById(elementId);
@@ -52,8 +53,8 @@ public class LookupTest {
 		String originResourcePath = "./src/test/resources/sample-0-origin.html";
 		String evilGeminiResourcePath = "./src/test/resources/sample-1-evil-gemini.html";
 
-		JsoupElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
-		JsoupElementRepository targetRepository = new JsoupElementRepository(new File(evilGeminiResourcePath));
+		ElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
+		ElementRepository targetRepository = new JsoupElementRepository(new File(evilGeminiResourcePath));
 
 		Optional<Element> element = originRepository.findById(elementId);
 
@@ -71,8 +72,8 @@ public class LookupTest {
 		String similarElementId = "custom-mod";
 		String originResourcePath = "./src/test/resources/sample-0-origin.html";
 		String customModResourcePath = "./src/test/resources/sample-0-origin-mod.html";;
-		JsoupElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
-		JsoupElementRepository targetRepository = new JsoupElementRepository(new File(customModResourcePath));
+		ElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
+		ElementRepository targetRepository = new JsoupElementRepository(new File(customModResourcePath));
 
 		Element element = originRepository.findById(elementId).get();
 		Element similarElement = targetRepository.findById(similarElementId).get();
@@ -93,8 +94,8 @@ public class LookupTest {
 		String originResourcePath = "./src/test/resources/sample-0-origin.html";
 		String evilGeminiResourcePath = "./src/test/resources/sample-1-evil-gemini.html";
 
-		JsoupElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
-		JsoupElementRepository evilGeminiRepository = new JsoupElementRepository(new File(evilGeminiResourcePath));
+		ElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
+		ElementRepository evilGeminiRepository = new JsoupElementRepository(new File(evilGeminiResourcePath));
 
 		Element element = originRepository.findById(elementId).get();
 		List<Element> similarElements = evilGeminiRepository.findByAttributeValue(element);
@@ -126,8 +127,8 @@ public class LookupTest {
 		String originResourcePath = "./src/test/resources/sample-0-origin.html";
 		String containerAndCloneResourcePath = "./src/test/resources/sample-2-container-and-clone.html";
 
-		JsoupElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
-		JsoupElementRepository containerAndCloneRepository = new JsoupElementRepository(new File(containerAndCloneResourcePath));
+		ElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
+		ElementRepository containerAndCloneRepository = new JsoupElementRepository(new File(containerAndCloneResourcePath));
 
 		Element element = originRepository.findById(elementId).get();
 		List<Element> similarElements = containerAndCloneRepository.findByAttributeValue(element);
@@ -158,8 +159,8 @@ public class LookupTest {
 		String originResourcePath = "./src/test/resources/sample-0-origin.html";
 		String theEscapeResourcePath = "./src/test/resources/sample-3-the-escape.html";
 
-		JsoupElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
-		JsoupElementRepository theScapeRepository = new JsoupElementRepository(new File(theEscapeResourcePath));
+		ElementRepository originRepository = new JsoupElementRepository(new File(originResourcePath));
+		ElementRepository theScapeRepository = new JsoupElementRepository(new File(theEscapeResourcePath));
 
 		ScoringService scoringService = new DefaultScoringService();
 		Lookup lookup = new Lookup(originRepository, theScapeRepository, scoringService);
