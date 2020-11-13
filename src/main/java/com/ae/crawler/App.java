@@ -3,12 +3,23 @@
  */
 package com.ae.crawler;
 
-public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
+import java.io.File;
+import java.io.IOException;
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+import com.ae.crawler.core.actions.Lookup;
+import com.ae.crawler.core.repositories.JsoupElementRepository;
+import com.ae.crawler.core.services.DefaultScoringService;
+import com.ae.crawler.core.services.ScoringService;
+
+public class App {
+
+    public static void main(String[] args) throws IOException {
+        JsoupElementRepository originElementRepository = new JsoupElementRepository(new File(args[0]));
+        JsoupElementRepository targetElementsRepository = new JsoupElementRepository(new File(args[1]));
+
+        ScoringService scoringService = new DefaultScoringService();
+        Lookup lookup = new Lookup(originElementRepository, targetElementsRepository, scoringService);
+
+        System.out.println(lookup.invoke(args[2]).orElse("element not found"));
     }
 }
